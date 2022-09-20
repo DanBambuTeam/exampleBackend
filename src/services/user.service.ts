@@ -1,6 +1,9 @@
+import bcrypt from 'bcrypt';
+
 const userList = [{
     id: 1,
     name: 'Danielo',
+    email: 'daniel.sanchez@bambu-mobile.com',
     password: '1234'
 }]
 
@@ -23,8 +26,22 @@ class UserService {
         return user;
     }
 
+    async findByEmail(email: string) {
+        const user = userList.find(item => item.email === email);
+        if (!user) {
+            return {
+                message: 'email no encontrado'
+            }
+        }
+        return user;
+    }
+
     async create(body: any) {
-        const newUser = await body;
+        const hash = await bcrypt.hash(body.password, 10);
+        const newUser = {
+            ...body,
+            password: hash
+        };
         userList.push(newUser);
         return newUser;
     }
@@ -36,7 +53,7 @@ class UserService {
             ...userUpdated,
             ...changes
         }
-        return userList[index] ;
+        return userList[index];
     }
 
     async delete(id: any) {

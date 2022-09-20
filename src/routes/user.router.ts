@@ -23,9 +23,7 @@ router.post('/', async (req, res, _next) => {
         console.log(newitem)
         const newUser = await service.create(newitem);
         res.status(201).json(newUser);
-        // res.status(201).json({
-        //     message: 'ok'
-        // })
+ 
     } catch (error) {
         throw new Error('Algo anda mal')
     }
