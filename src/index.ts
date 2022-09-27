@@ -1,6 +1,6 @@
 import express from 'express';
 import config from './config';
-import routerApi from './routes/routes';
+import {mainRouter} from './routes/routes';
 
 require('./utils/auth');
 
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 
-routerApi(app);
+app.use('api/v1',mainRouter)
 
 
 app.listen(config.port, () => {

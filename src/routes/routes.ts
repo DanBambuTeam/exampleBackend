@@ -1,13 +1,21 @@
-import express from 'express';
+import { Router } from 'express';
 import userRouter from './user.router';
 import authRouter from './auth.router';
 
-function routerApi(app: any){
-    const router = express.Router();
-    app.use('/api/v1/', router);
-    router.use('/user', userRouter);
-    router.use('/auth', authRouter);
-}
+export const mainRouter = Router();
 
 
-export default routerApi;
+mainRouter
+    .use('/user', userRouter)
+    .use('/auth', authRouter)
+;
+
+// function routerApi(app: any) {
+//     const router = Router();
+//     app.use('/api/v1/', router);
+//     router.use('/user', userRouter);
+//     router.use('/auth', authRouter);
+// }
+
+
+// export default routerApi;
